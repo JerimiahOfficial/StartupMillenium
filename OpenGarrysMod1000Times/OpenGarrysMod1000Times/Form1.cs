@@ -45,7 +45,7 @@ namespace OpenGarrysMod1000Times
             foreach (Process proc in Process.GetProcessesByName("hl2"))
             {
                 proc.Kill();
-                Thread.Sleep(2000);
+                Thread.Sleep(1000);
                 procKilled = 1;
             }
 
