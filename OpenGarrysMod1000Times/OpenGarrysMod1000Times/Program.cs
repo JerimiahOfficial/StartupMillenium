@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OpenGarrysMod1000Times
+namespace Startup_Millenium
 {
     static class Program
     {

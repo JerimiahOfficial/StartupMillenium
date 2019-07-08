@@ -1,4 +1,4 @@
-﻿namespace OpenGarrysMod1000Times
+﻿namespace Startup_Millenium
 {
     partial class Form1
     {
@@ -35,12 +35,12 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.start_Button = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.youtube_Button = new System.Windows.Forms.Button();
             this.github_Button = new System.Windows.Forms.Button();
+            this.youtube_Button = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.start_Button = new System.Windows.Forms.CheckBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -71,7 +71,7 @@
             this.panel1.BackColor = System.Drawing.Color.DimGray;
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(95, 50);
+            this.panel1.Location = new System.Drawing.Point(95, 51);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(393, 75);
             this.panel1.TabIndex = 2;
@@ -101,10 +101,54 @@
             this.panel2.Size = new System.Drawing.Size(500, 175);
             this.panel2.TabIndex = 4;
             // 
-            // timer1
+            // github_Button
             // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.github_Button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("github_Button.BackgroundImage")));
+            this.github_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.github_Button.FlatAppearance.BorderSize = 0;
+            this.github_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.github_Button.Location = new System.Drawing.Point(12, 133);
+            this.github_Button.Name = "github_Button";
+            this.github_Button.Size = new System.Drawing.Size(30, 30);
+            this.github_Button.TabIndex = 5;
+            this.github_Button.UseVisualStyleBackColor = true;
+            this.github_Button.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // youtube_Button
+            // 
+            this.youtube_Button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("youtube_Button.BackgroundImage")));
+            this.youtube_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.youtube_Button.FlatAppearance.BorderSize = 0;
+            this.youtube_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.youtube_Button.Location = new System.Drawing.Point(48, 133);
+            this.youtube_Button.Name = "youtube_Button";
+            this.youtube_Button.Size = new System.Drawing.Size(30, 30);
+            this.youtube_Button.TabIndex = 4;
+            this.youtube_Button.UseVisualStyleBackColor = true;
+            this.youtube_Button.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(12, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(111, 18);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Made by: Jerimiah";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label3.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(476, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(21, 18);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "r";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // start_Button
             // 
@@ -121,54 +165,10 @@
             this.start_Button.UseVisualStyleBackColor = false;
             this.start_Button.CheckedChanged += new System.EventHandler(this.start_Button_CheckedChanged);
             // 
-            // label3
+            // timer1
             // 
-            this.label3.AutoSize = true;
-            this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label3.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(476, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(21, 18);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "r";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(12, 9);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(111, 18);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Made by: Jerimiah";
-            // 
-            // youtube_Button
-            // 
-            this.youtube_Button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("youtube_Button.BackgroundImage")));
-            this.youtube_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.youtube_Button.FlatAppearance.BorderSize = 0;
-            this.youtube_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.youtube_Button.Location = new System.Drawing.Point(48, 133);
-            this.youtube_Button.Name = "youtube_Button";
-            this.youtube_Button.Size = new System.Drawing.Size(30, 30);
-            this.youtube_Button.TabIndex = 4;
-            this.youtube_Button.UseVisualStyleBackColor = true;
-            this.youtube_Button.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // github_Button
-            // 
-            this.github_Button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("github_Button.BackgroundImage")));
-            this.github_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.github_Button.FlatAppearance.BorderSize = 0;
-            this.github_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.github_Button.Location = new System.Drawing.Point(12, 133);
-            this.github_Button.Name = "github_Button";
-            this.github_Button.Size = new System.Drawing.Size(30, 30);
-            this.github_Button.TabIndex = 5;
-            this.github_Button.UseVisualStyleBackColor = true;
-            this.github_Button.Click += new System.EventHandler(this.button2_Click);
+            this.timer1.Interval = 8000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
@@ -185,7 +185,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Startup Millenium";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

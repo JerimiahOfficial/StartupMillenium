@@ -1,0 +1,10 @@
+C:\Users\jerimiah\source\repos\OpenGarrysMod1000Times\OpenGarrysMod1000Times\obj\Debug\Startup_Millenium.Form1.resources
+C:\Users\jerimiah\source\repos\OpenGarrysMod1000Times\OpenGarrysMod1000Times\obj\Debug\Startup Millenium.csproj.GenerateResource.cache
+C:\Users\jerimiah\source\repos\OpenGarrysMod1000Times\OpenGarrysMod1000Times\obj\Debug\Startup Millenium.csproj.CoreCompileInputs.cache
+C:\Users\jerimiah\source\repos\OpenGarrysMod1000Times\OpenGarrysMod1000Times\obj\Debug\Startup Millenium.exe
+C:\Users\jerimiah\source\repos\OpenGarrysMod1000Times\OpenGarrysMod1000Times\obj\Debug\Startup Millenium.pdb
+C:\Users\jerimiah\source\repos\OpenGarrysMod1000Times\OpenGarrysMod1000Times\bin\Debug\Startup Millenium.exe.config
+C:\Users\jerimiah\source\repos\OpenGarrysMod1000Times\OpenGarrysMod1000Times\bin\Debug\Startup Millenium.exe
+C:\Users\jerimiah\source\repos\OpenGarrysMod1000Times\OpenGarrysMod1000Times\bin\Debug\Startup Millenium.pdb
+C:\Users\jerimiah\source\repos\OpenGarrysMod1000Times\OpenGarrysMod1000Times\obj\Debug\Startup_Millenium.Properties.Resources.resources
+C:\Users\jerimiah\source\repos\OpenGarrysMod1000Times\OpenGarrysMod1000Times\obj\Debug\Startup Millenium.csprojAssemblyReference.cache

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 
-namespace OpenGarrysMod1000Times
+namespace Startup_Millenium
 {
     public partial class Form1 : Form
     {
@@ -21,13 +21,14 @@ namespace OpenGarrysMod1000Times
 
         private void start_Button_CheckedChanged(object sender, EventArgs e)
         {
-            if (start_Button.Checked)
+            if (start_Button.Checked == true)
             {
                 timer1.Start();
                 start_Button.Text = "Stop";
                 start_Button.BackColor = Color.FromArgb(255, 0, 0);
+
             }
-            else
+            else if(start_Button.Checked == false)
             {
                 timer1.Stop();
                 start_Button.Text = "Start";
@@ -45,7 +46,6 @@ namespace OpenGarrysMod1000Times
             foreach (Process proc in Process.GetProcessesByName("hl2"))
             {
                 proc.Kill();
-                Thread.Sleep(1000);
                 procKilled = 1;
             }
 
@@ -53,6 +53,7 @@ namespace OpenGarrysMod1000Times
             {
                 const string fileDir = "F:\\Program Files (x86)\\Steam\\steamapps\\common\\GarrysMod\\hl2.exe";
                 Process.Start(fileDir);
+                Thread.Sleep(1000);
                 procKilled = 0;
             }
         }
