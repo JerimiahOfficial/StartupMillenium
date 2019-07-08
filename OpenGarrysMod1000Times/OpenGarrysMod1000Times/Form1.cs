@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -45,6 +45,7 @@ namespace OpenGarrysMod1000Times
             foreach (Process proc in Process.GetProcessesByName("hl2"))
             {
                 proc.Kill();
+                Thread.Sleep(2000);
                 procKilled = 1;
             }
 
