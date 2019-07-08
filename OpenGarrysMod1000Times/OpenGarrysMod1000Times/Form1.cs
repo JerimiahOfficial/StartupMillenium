@@ -51,7 +51,7 @@ namespace Startup_Millenium
 
             if (procKilled == 1)
             {
-                const string fileDir = "F:\\Program Files (x86)\\Steam\\steamapps\\common\\GarrysMod\\hl2.exe";
+                const string fileDir = "C:\\Program Files\\Steam\\steamapps\\common\\GarrysMod\\hl2.exe";
                 Process.Start(fileDir);
                 Thread.Sleep(1000);
                 procKilled = 0;
