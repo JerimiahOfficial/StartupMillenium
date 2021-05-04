@@ -64,11 +64,11 @@ namespace Startup_Millenium
             switch (curStatus)
             {
                 case 0:
-                    startButton.ImageIndex = 0;
+                    startButton.Text = "4";
                     Checker.Stop();
                     break;
                 case 1:
-                    startButton.ImageIndex = 1;
+                    startButton.Text = "<";
                     Checker.Start();
                     break;
                 case 2:

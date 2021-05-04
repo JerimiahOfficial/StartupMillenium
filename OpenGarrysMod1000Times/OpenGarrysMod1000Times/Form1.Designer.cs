@@ -35,12 +35,11 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.content = new System.Windows.Forms.Panel();
+            this.closeButton = new System.Windows.Forms.Button();
+            this.startButton = new System.Windows.Forms.Button();
             this.github_Button = new System.Windows.Forms.Button();
             this.youtube_Button = new System.Windows.Forms.Button();
             this.Checker = new System.Windows.Forms.Timer(this.components);
-            this.startButton = new Startup_Millenium.b();
-            this.mainButton = new System.Windows.Forms.ImageList(this.components);
-            this.closeButton = new Startup_Millenium.b();
             this.Status = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -102,6 +101,37 @@
             this.content.Size = new System.Drawing.Size(375, 138);
             this.content.TabIndex = 4;
             // 
+            // closeButton
+            // 
+            this.closeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.closeButton.FlatAppearance.BorderSize = 0;
+            this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.closeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.closeButton.Location = new System.Drawing.Point(83, 92);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(243, 30);
+            this.closeButton.TabIndex = 7;
+            this.closeButton.TabStop = false;
+            this.closeButton.Text = "Close";
+            this.closeButton.UseVisualStyleBackColor = false;
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            // 
+            // startButton
+            // 
+            this.startButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.startButton.FlatAppearance.BorderSize = 0;
+            this.startButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.startButton.Font = new System.Drawing.Font("Webdings", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.startButton.ImageIndex = 0;
+            this.startButton.Location = new System.Drawing.Point(332, 92);
+            this.startButton.Name = "startButton";
+            this.startButton.Size = new System.Drawing.Size(30, 30);
+            this.startButton.TabIndex = 6;
+            this.startButton.TabStop = false;
+            this.startButton.Text = "4";
+            this.startButton.UseVisualStyleBackColor = false;
+            this.startButton.Click += new System.EventHandler(this.startButton_Click);
+            // 
             // github_Button
             // 
             this.github_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
@@ -135,43 +165,6 @@
             // 
             this.Checker.Interval = 8000;
             this.Checker.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // startButton
-            // 
-            this.startButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-            this.startButton.FlatAppearance.BorderSize = 0;
-            this.startButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.startButton.ImageIndex = 0;
-            this.startButton.ImageList = this.mainButton;
-            this.startButton.Location = new System.Drawing.Point(332, 92);
-            this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(30, 30);
-            this.startButton.TabIndex = 6;
-            this.startButton.TabStop = false;
-            this.startButton.UseVisualStyleBackColor = false;
-            this.startButton.Click += new System.EventHandler(this.startButton_Click);
-            // 
-            // mainButton
-            // 
-            this.mainButton.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("mainButton.ImageStream")));
-            this.mainButton.TransparentColor = System.Drawing.Color.Transparent;
-            this.mainButton.Images.SetKeyName(0, "30.png");
-            this.mainButton.Images.SetKeyName(1, "icons8-stop-24.png");
-            // 
-            // closeButton
-            // 
-            this.closeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-            this.closeButton.FlatAppearance.BorderSize = 0;
-            this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.closeButton.Font = new System.Drawing.Font("Roboto Medium", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.closeButton.Location = new System.Drawing.Point(83, 92);
-            this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(243, 30);
-            this.closeButton.TabIndex = 7;
-            this.closeButton.TabStop = false;
-            this.closeButton.Text = "Close";
-            this.closeButton.UseVisualStyleBackColor = false;
-            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
             // Status
             // 
@@ -211,9 +204,8 @@
         private System.Windows.Forms.Timer Checker;
         private System.Windows.Forms.Button github_Button;
         private System.Windows.Forms.Button youtube_Button;
-        private b startButton;
-        private System.Windows.Forms.ImageList mainButton;
-        private b closeButton;
+        private System.Windows.Forms.Button startButton;
+        private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.Timer Status;
     }
 }
