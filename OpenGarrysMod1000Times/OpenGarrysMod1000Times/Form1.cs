@@ -15,38 +15,38 @@ namespace Startup_Millenium
     public partial class Form1 : Form
     {
         public static int curStatus = 0;
+        public static int procKilled;
+        public static string dir = "";
 
-        public Form1()
-        {
+        public Form1() {
             InitializeComponent();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            int procKilled = 1;
-            foreach (Process proc in Process.GetProcessesByName("hl2"))
-            {
+        private void timer1_Tick(object sender, EventArgs e) {
+            
+            foreach (Process proc in Process.GetProcessesByName("hl2")) {
                 proc.Kill();
                 procKilled = 1;
             }
 
-            if (procKilled == 1)
-            {
-                const string fileDir = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\GarrysMod\\hl2.exe";
-                Process.Start(fileDir);
-                Thread.Sleep(1000);
-                procKilled = 0;
+            if (procKilled == 1) {
+                if (dir.Length > 0) {
+                    Process.Start(dir);
+                    Thread.Sleep(1000);
+                    procKilled = 0;
+                }
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void dirButton_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/JerimiahOfficial");
+            OpenFileDialog gmoddir = new OpenFileDialog();
+            gmoddir.ShowDialog();
+            dir = gmoddir.FileName;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://www.youtube.com/channel/UCHi47xiIYDponERT6IXLRew");
+        private void startButton_Click(object sender, EventArgs e) {
+            curStatus += 1;
         }
 
         private void closeButton_Click(object sender, EventArgs e)
@@ -54,21 +54,16 @@ namespace Startup_Millenium
             Application.Exit();
         }
 
-        private void startButton_Click(object sender, EventArgs e)
-        {
-            curStatus += 1;
-        }
-
-        private void Status_Tick(object sender, EventArgs e)
-        {
-            switch (curStatus)
-            {
+        private void Status_Tick(object sender, EventArgs e) {
+            switch (curStatus) {
                 case 0:
-                    startButton.Text = "4";
+                    startButton.Text = "Start";
+                    startButton.BackColor = Color.Green;
                     Checker.Stop();
                     break;
                 case 1:
-                    startButton.Text = "<";
+                    startButton.Text = "Stop";
+                    startButton.BackColor = Color.Red;
                     Checker.Start();
                     break;
                 case 2:
