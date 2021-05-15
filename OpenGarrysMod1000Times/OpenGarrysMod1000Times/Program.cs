@@ -16,7 +16,7 @@ namespace Startup_Millenium
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SM());
+            Application.Run(new Sm());
         }
     }
 }

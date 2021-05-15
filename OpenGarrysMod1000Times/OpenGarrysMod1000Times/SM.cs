@@ -1,97 +1,143 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
-using System.Threading;
 
 namespace Startup_Millenium
 {
-    public partial class SM : Form
+    public partial class Sm : Form
     {
-        public static bool      curStatus   = false;
-        public static bool      procKilled  = false;
-        public static string    dir         = "";
+        public static bool CurStatus;
+        public static bool ProcKilled;
+        public static string Dir;
 
-        public SM() {
+        public Sm()
+        {
             InitializeComponent();
+            startButton.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+            closeButton.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
 
-        private void dirButton_Click(object sender, EventArgs e) {
-            // Create OFD.
-            OpenFileDialog gmoddir = new OpenFileDialog();
-
-            // Show OFD.
-            gmoddir.ShowDialog();
-
-            // Set directory to the file name.
-            dir = gmoddir.FileName;
-        }
-
-        private void startButton_Click(object sender, EventArgs e) {
-            if (dir.Length <= 0) {
-                MessageBox.Show("You must use the garrysmod directory button to set a directory.", "Missing directory!", MessageBoxButtons.OK);
+        private void startButton_Click(object sender, EventArgs e)
+        {
+            if (Dir == null || Dir.Length <= 0)
+            {
+                MessageBox.Show(@"Startup Millenium couldn't find your Garrysmod directory.", @"Missing directory!", MessageBoxButtons.OK);
                 return;
             }
 
             // Change status inside switch.
-            curStatus = !curStatus;
+            CurStatus = !CurStatus;
+
+            switch (CurStatus)
+            {
+                case false: 
+                    // If program isn't running, set button back to Start.
+                    startButton.Text = @"Start";
+                    startButton.BackColor = Color.Green;
+                    break;
+
+                case true: 
+                    // If program is running, set button to Stop.
+                    startButton.Text = @"Stop";
+                    startButton.BackColor = Color.Red;
+                    // Start timer and process.
+                    break;
+            }
         }
 
-        private void closeButton_Click(object sender, EventArgs e) {
+        private void closeButton_Click(object sender, EventArgs e)
+        {
             // Exit application when clicked.
             Application.Exit();
         }
 
-        private void Status_Tick(object sender, EventArgs e) {
-            switch (curStatus) {
-                case false: // If program isn't running, set button back to Start.
-                    startButton.Text = "Start";
-                    startButton.BackColor = Color.Green;
-                    Checker.Stop();
-                    break;
+        private void Checker_Tick(object sender, EventArgs e)
+        {
+            var processes = Process.GetProcesses();
 
-                case true: // If program is running, set button to Stop.
-                    startButton.Text = "Stop";
-                    startButton.BackColor = Color.Red;
-                    Checker.Start();
-                    break;
-            }
-        }
+            if (CurStatus)
+            {
+                switch (ProcKilled)
+                {
+                    case false:
+                        // Kills the process.
+                        try
+                        {
+                            foreach (var proc in processes)
+                            {
+                                switch (proc.ProcessName)
+                                {
+                                    case "hl2":
+                                        proc.Kill();
+                                        break;
 
-        private void Checker_Tick(object sender, EventArgs e) {
-            // If the process was killed then start garrysmod.
-            if (!procKilled) {
-                Process.Start(dir);
-                procKilled = !procKilled;
-            }
+                                    case "gmod":
+                                        proc.Kill();
+                                        break;
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
 
-            // Close hl2.exe everytime there is and instance.
-            if (procKilled) {
-                try {
-                    foreach (Process proc in Process.GetProcessesByName("hl2")) {
-                        proc.Kill();
-                    }
-                } catch (Exception ex) {
-                    MessageBox.Show(ex.Message);
+                        ProcKilled = !ProcKilled;
+                        break;
+
+                    case true:
+                        Process.Start(Dir);
+                        ProcKilled = !ProcKilled;
+                        break;
+                    
                 }
             }
         }
 
-        private void SM_FormClosed(object sender, FormClosedEventArgs e) {
+        private void SM_FormClosed(object sender, FormClosedEventArgs e)
+        {
             // Try to close all processes named hl2 when form closed.
-            try {
-                foreach (Process proc in Process.GetProcessesByName("hl2")) {
+            try
+            {
+                foreach (var proc in Process.GetProcessesByName("hl2"))
+                {
                     proc.Kill();
                 }
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void Sm_Load(object sender, EventArgs e)
+        {
+            var gmod = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + 
+                       "\\Steam\\steamapps\\common\\GarrysMod\\hl2.exe";
+            var allDrives = DriveInfo.GetDrives();
+
+            if (File.Exists(gmod))
+            {
+                Dir = gmod;
+            }
+            else
+            {
+                foreach (var d in allDrives)
+                {
+                    if (d.DriveType == DriveType.Fixed)
+                    {
+                        var newdir = d.Name + gmod.Substring(3);
+
+                        if (File.Exists(newdir))
+                        {
+                            Dir = newdir;
+                        }
+                    }
+                }
+            }
+            ProcKilled = true;
         }
     }
 }
