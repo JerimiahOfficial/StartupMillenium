@@ -1,7 +1,5 @@
 # Startup-Millenium
-Dir: The program will defualt to the C:\ Drive for steams directory
-
-This project was made so I could get an achievement in a game called garrysmod, it will ask you for administrator privillages as it's required in order to kill the processes.
+This project was made so I could get an achievement in a game called garrysmod, it will ask you for administrator privillages as it's required in order to kill the processes. This will also search drives for your hl2.exe inside your garrysmod folder saving the need for the user to set a directory or have a defualt directory for the program.
 Video: https://www.youtube.com/watch?v=1sbe09a9vJo&feature=youtu.be *This was made before dark mode 'update'*
 
 # User Interface
