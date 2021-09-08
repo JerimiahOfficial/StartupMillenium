@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -114,30 +114,46 @@ namespace Startup_Millenium
 
         private void Sm_Load(object sender, EventArgs e)
         {
-            var gmod = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + 
-                       "\\Steam\\steamapps\\common\\GarrysMod\\hl2.exe";
             var allDrives = DriveInfo.GetDrives();
 
-            if (File.Exists(gmod))
+            foreach (var d in allDrives)
             {
-                Dir = gmod;
-            }
-            else
-            {
-                foreach (var d in allDrives)
+                if (d.DriveType == DriveType.Fixed)
                 {
-                    if (d.DriveType == DriveType.Fixed)
-                    {
-                        var newdir = d.Name + gmod.Substring(3);
-
-                        if (File.Exists(newdir))
-                        {
-                            Dir = newdir;
-                        }
-                    }
+                    SearchDrive(d.Name, CheckFile);
                 }
             }
             ProcKilled = true;
+        }
+
+        void CheckFile(string path) {
+            if (!path.Contains(@"\Steam\steamapps\common\GarrysMod\hl2.exe"))
+                return;
+            else
+            {
+                Dir = path;
+                this.WindowState = FormWindowState.Normal;
+            }
+        }
+
+        public void SearchDrive(string drive, Action<string> fileAction)
+        {
+            foreach (string file in Directory.GetFiles(drive, "*.exe"))
+            {
+                fileAction(file);
+            }
+
+            foreach (string subDir in Directory.GetDirectories(drive))
+            {
+                try
+                {
+                    SearchDrive(subDir, fileAction);
+                }
+                catch
+                {
+                    
+                }
+            }
         }
     }
 }
