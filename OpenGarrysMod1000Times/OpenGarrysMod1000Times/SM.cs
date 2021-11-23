@@ -106,7 +106,6 @@ namespace Startup_Millenium {
             }
         }
 
-        [Obsolete]
         private void ButtonHandler(object s, EventArgs e) {
             Button b = (Button)s;
 
@@ -137,7 +136,6 @@ namespace Startup_Millenium {
             }
         }
 
-        [Obsolete]
         private void SM_FormClosed(object sender, FormClosedEventArgs e) {
             if (Process.GetProcessesByName("gmod") != null)
                 foreach (Process p in Process.GetProcessesByName("gmod"))
