@@ -15,37 +15,6 @@ namespace Startup_Millenium {
         private static bool CurStatus = false;
         private static string Dir;
 
-        /*
-        private static string GetInstallPath() {
-            if (Environment.Is64BitOperatingSystem)
-                return (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Valve\Steam", "InstallPath", null);
-            else
-                return (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Valve\Steam", "InstallPath", null);
-        }
-
-        private static string GetInstallLibrary() {
-            string[] lines = File.ReadAllLines(GetInstallPath() + "\\steamapps\\libraryfolders.vdf")
-                .Where(i => i.Contains(":"))
-                .ToArray();
-            string[] dirs;
-
-            foreach (string line in lines) {
-                dirs.Append(line.Substring(11).TrimEnd('"'));
-            }
-
-            //		"path"		"C:\\Program Files (x86)\\Steam"
-            //		"path"      "E:\\Program Files (x86)\\Steam"
-
-            Debug.WriteLine(string.Join("\n", lines));
-            
-            foreach (string dir in dirs) {
-                if (Directory.Exists(dir.Substring(11).TrimEnd('"') + "\\steamapps\\common\\GarrysMod\\hl2.exe")) {
-                    return dir.Substring(11).TrimEnd('"') + "\\steamapps\\common\\GarrysMod\\hl2.exe";
-                }
-            }
-
-            return "None found?";
-        }*/
         private static string GetInstallPath() {
             var key = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine,
                 Environment.Is64BitOperatingSystem ? RegistryView.Registry64 : RegistryView.Registry32);
