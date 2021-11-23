@@ -1,6 +1,6 @@
 ﻿namespace Startup_Millenium
 {
-    partial class Sm
+    partial class SM
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Sm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SM));
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -37,7 +36,6 @@
             this.content = new System.Windows.Forms.Panel();
             this.closeButton = new System.Windows.Forms.Button();
             this.startButton = new System.Windows.Forms.Button();
-            this.Checker = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.content.SuspendLayout();
@@ -120,7 +118,7 @@
             this.closeButton.TabStop = false;
             this.closeButton.Text = "Close";
             this.closeButton.UseVisualStyleBackColor = false;
-            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            this.closeButton.Click += new System.EventHandler(this.ButtonHandler);
             // 
             // startButton
             // 
@@ -138,15 +136,9 @@
             this.startButton.TabStop = false;
             this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = false;
-            this.startButton.Click += new System.EventHandler(this.startButton_Click);
+            this.startButton.Click += new System.EventHandler(this.ButtonHandler);
             // 
-            // Checker
-            // 
-            this.Checker.Enabled = true;
-            this.Checker.Interval = 10000;
-            this.Checker.Tick += new System.EventHandler(this.Checker_Tick);
-            // 
-            // Sm
+            // SM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -158,12 +150,11 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "Sm";
+            this.Name = "SM";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Startup Millenium";
-            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+            this.TopMost = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SM_FormClosed);
-            this.Load += new System.EventHandler(this.Sm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -179,7 +170,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel content;
-        private System.Windows.Forms.Timer Checker;
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.Button closeButton;
     }

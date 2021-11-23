@@ -1,159 +1,148 @@
+using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
-namespace Startup_Millenium
-{
-    public partial class Sm : Form
-    {
-        public static bool CurStatus;
-        public static bool ProcKilled;
-        public static string Dir;
+namespace Startup_Millenium {
 
-        public Sm()
-        {
+    public partial class SM : Form {
+        private Thread thread = new Thread(Open);
+        private static bool CurStatus = false;
+        private static string Dir;
+
+        /*
+        private static string GetInstallPath() {
+            if (Environment.Is64BitOperatingSystem)
+                return (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Valve\Steam", "InstallPath", null);
+            else
+                return (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Valve\Steam", "InstallPath", null);
+        }
+
+        private static string GetInstallLibrary() {
+            string[] lines = File.ReadAllLines(GetInstallPath() + "\\steamapps\\libraryfolders.vdf")
+                .Where(i => i.Contains(":"))
+                .ToArray();
+            string[] dirs;
+
+            foreach (string line in lines) {
+                dirs.Append(line.Substring(11).TrimEnd('"'));
+            }
+
+            //		"path"		"C:\\Program Files (x86)\\Steam"
+            //		"path"      "E:\\Program Files (x86)\\Steam"
+
+            Debug.WriteLine(string.Join("\n", lines));
+            
+            foreach (string dir in dirs) {
+                if (Directory.Exists(dir.Substring(11).TrimEnd('"') + "\\steamapps\\common\\GarrysMod\\hl2.exe")) {
+                    return dir.Substring(11).TrimEnd('"') + "\\steamapps\\common\\GarrysMod\\hl2.exe";
+                }
+            }
+
+            return "None found?";
+        }*/
+        private static string GetInstallPath() {
+            var key = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine,
+                Environment.Is64BitOperatingSystem ? RegistryView.Registry64 : RegistryView.Registry32);
+
+            var registryPath = key.View == RegistryView.Registry64
+                ? @"SOFTWARE\Wow6432Node\Valve\Steam"
+                : @"SOFTWARE\Valve\Steam";
+
+            var registryValue = key.OpenSubKey(registryPath)?.GetValue("InstallPath");
+
+            return registryValue?.ToString();
+        }
+
+        private static IEnumerable<string> GetInstallLibrary() {
+            var steamPath = GetInstallPath();
+
+            if (steamPath is null) {
+                yield break;
+            }
+
+            var filePath = $@"{steamPath}\steamapps\libraryfolders.vdf";
+
+            var lines = File.ReadAllLines(filePath);
+
+            var paths = File.ReadAllLines(filePath)
+                .Where(s => s.Contains("path"))
+                .Select(s => s.Split('\"')[3])
+                .Select(Path.GetFullPath);
+
+            foreach (var path in paths) {
+                yield return path;
+            }
+        }
+
+        public SM() {
             InitializeComponent();
+
             startButton.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
             closeButton.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+
+            thread.Start();
+            thread.Suspend();
         }
 
-        private void startButton_Click(object sender, EventArgs e)
-        {
-            if (Dir == null || Dir.Length <= 0)
-            {
-                MessageBox.Show(@"Startup Millenium couldn't find your Garrysmod directory.", @"Missing directory!", MessageBoxButtons.OK);
-                return;
+        private static void Open() {
+            if (Dir != null) {
+                while (CurStatus) {
+                    Process proc = new Process();
+                    proc.StartInfo.FileName = Dir;
+                    proc.StartInfo.Arguments = "-windowed -w 200 -h 100";
+                    proc.Start();
+
+                    Thread.Sleep(10000);
+
+                    foreach (Process p in Process.GetProcessesByName("gmod"))
+                        p.Kill();
+                }
             }
+        }
 
-            // Change status inside switch.
-            CurStatus = !CurStatus;
+        private void ButtonHandler(object s, EventArgs e) {
+            Button b = (Button)s;
 
-            switch (CurStatus)
-            {
-                case false: 
-                    // If program isn't running, set button back to Start.
-                    startButton.Text = @"Start";
-                    startButton.BackColor = Color.Green;
+            switch (b.Name) {
+                case "startButton":
+                    CurStatus = !CurStatus;
+
+                    startButton.Text = CurStatus ? "Stop" : "Start";
+                    startButton.BackColor = CurStatus ? Color.Red : Color.Green;
+
+                    GetInstallLibrary().ToList().ForEach(p => {
+                        if (File.Exists(p + @"\steamapps\common\GarrysMod\hl2.exe"))
+                            Dir = p + @"\steamapps\common\GarrysMod\hl2.exe";
+                    });
+
+                    if (CurStatus)
+                        thread.Resume();
+                    else
+                        thread.Suspend();
                     break;
 
-                case true: 
-                    // If program is running, set button to Stop.
-                    startButton.Text = @"Stop";
-                    startButton.BackColor = Color.Red;
-                    // Start timer and process.
+                case "closeButton":
+                    Application.Exit();
+                    break;
+
+                default:
                     break;
             }
         }
 
-        private void closeButton_Click(object sender, EventArgs e)
-        {
-            // Exit application when clicked.
-            Application.Exit();
-        }
+        private void SM_FormClosed(object sender, FormClosedEventArgs e) {
+            if (Process.GetProcessesByName("gmod") != null)
+                foreach (Process p in Process.GetProcessesByName("gmod"))
+                    p.Kill();
 
-        private void Checker_Tick(object sender, EventArgs e)
-        {
-            var processes = Process.GetProcesses();
-
-            if (CurStatus)
-            {
-                switch (ProcKilled)
-                {
-                    case false:
-                        // Kills the process.
-                        try
-                        {
-                            foreach (var proc in processes)
-                            {
-                                switch (proc.ProcessName)
-                                {
-                                    case "hl2":
-                                        proc.Kill();
-                                        break;
-
-                                    case "gmod":
-                                        proc.Kill();
-                                        break;
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-
-                        ProcKilled = !ProcKilled;
-                        break;
-
-                    case true:
-                        Process.Start(Dir);
-                        ProcKilled = !ProcKilled;
-                        break;
-                    
-                }
-            }
-        }
-
-        private void SM_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            // Try to close all processes named hl2 when form closed.
-            try
-            {
-                foreach (var proc in Process.GetProcessesByName("hl2"))
-                {
-                    proc.Kill();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void Sm_Load(object sender, EventArgs e)
-        {
-            var allDrives = DriveInfo.GetDrives();
-
-            foreach (var d in allDrives)
-            {
-                if (d.DriveType == DriveType.Fixed)
-                {
-                    SearchDrive(d.Name, CheckFile);
-                }
-            }
-            ProcKilled = true;
-        }
-
-        void CheckFile(string path) {
-            if (!path.Contains(@"\Steam\steamapps\common\GarrysMod\hl2.exe"))
-                return;
-            else
-            {
-                Dir = path;
-                this.WindowState = FormWindowState.Normal;
-            }
-        }
-
-        public void SearchDrive(string drive, Action<string> fileAction)
-        {
-            foreach (string file in Directory.GetFiles(drive, "*.exe"))
-            {
-                fileAction(file);
-            }
-
-            foreach (string subDir in Directory.GetDirectories(drive))
-            {
-                try
-                {
-                    SearchDrive(subDir, fileAction);
-                }
-                catch
-                {
-                    
-                }
-            }
+            thread.Resume();
+            thread.Abort(true);
         }
     }
 }
