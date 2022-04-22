@@ -1,5 +1,4 @@
-/Startup-Millenium/bin/*
-/Startup-Millenium/obj/*
-/OpenGarrysMod1000Times/.vs/Startup Millenium
-/OpenGarrysMod1000Times/Startup-Millenium/bin/Debug/net6.0-windows
+
+/OpenGarrysMod1000Times/.vs
+/OpenGarrysMod1000Times/Startup-Millenium/bin
 /OpenGarrysMod1000Times/Startup-Millenium/obj
