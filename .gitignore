@@ -1,4 +1,4 @@
 
-OpenGarrysMod1000Times/.vs/
-OpenGarrysMod1000Times/OpenGarrysMod1000Times/bin
-OpenGarrysMod1000Times/OpenGarrysMod1000Times/obj
+OpenGarrysMod1000Times/.vs/*
+/OpenGarrysMod1000Times/Startup-Millenium/bin/*
+/OpenGarrysMod1000Times/Startup-Millenium/obj/*
