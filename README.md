@@ -4,4 +4,4 @@ This project was made so I could get an achievement in a game called garrysmod. 
 [Showcase Video (older version)](https://www.youtube.com/watch?v=1sbe09a9vJo)
 
 # User Interface
-![image](https://user-images.githubusercontent.com/38990407/122669134-e7865f80-d189-11eb-8752-c711efa55745.png)
+![image](https://user-images.githubusercontent.com/38990407/164753359-ff2c8931-6e84-49e8-9279-99d14165215e.png)
