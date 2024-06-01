@@ -7,6 +7,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(SM source/main.cpp)
 
+target_link_libraries(SM stdc++fs)
+
 set_target_properties(SM PROPERTIES
   CXX_STANDARD 20
   CXX_STANDARD_REQUIRED YES
