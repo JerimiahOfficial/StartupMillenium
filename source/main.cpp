@@ -1,4 +1,3 @@
-#include <filesystem>
 #include <iostream>
 #include <thread>
 
@@ -6,6 +5,8 @@
 #include <stdio.h>
 #include <tchar.h>
 #include <windows.h>
+
+#include <filesystem>
 namespace fs = std::filesystem;
 
 std::string path =
