@@ -19,13 +19,6 @@ jobs:
           submodules: recursive
 
       - if: ${{matrix.os == 'ubuntu-latest'}}
-        name: Updating packages
-        run: |
-          sudo apt-get update
-          sudo apt-get install gcc g++
-
-
-      - if: ${{matrix.os == 'ubuntu-latest'}}
         name: Configure for linux
         run: >
           cmake -B build
