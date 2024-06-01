@@ -7,9 +7,6 @@
 #include <tchar.h>
 #include <windows.h>
 
-// #include <filesystem>
-// namespace fs = std::filesystem;
-
 std::string path =
     "C:\\Program Files (x86)\\Steam\\steamapps\\common\\GarrysMod";
 
@@ -34,8 +31,6 @@ _PROCESS_INFORMATION startup(LPCSTR lpApplicationName) {
 }
 
 #elif __linux__
-// #include <experimental/filesystem>
-// namespace fs = std::experimental::filesystem;
 std::string path = "/home/user/.steam/steam/steamapps/common/GarrysMod";
 // TODO: Implement Linux
 #endif
