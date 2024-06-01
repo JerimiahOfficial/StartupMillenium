@@ -1,4 +1,2 @@
-
-/OpenGarrysMod1000Times/.vs
-/OpenGarrysMod1000Times/Startup-Millenium/bin
-/OpenGarrysMod1000Times/Startup-Millenium/obj
+.vscode
+build
