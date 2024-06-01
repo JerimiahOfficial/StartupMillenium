@@ -35,6 +35,7 @@ _PROCESS_INFORMATION startup(LPCSTR lpApplicationName) {
 #elif __linux__
 #include <experimental/filesystem>
 namespace fs = std::experimental::filesystem;
+std::string path = "/home/user/.steam/steam/steamapps/common/GarrysMod";
 // TODO: Implement Linux
 #endif
 
