@@ -11,7 +11,7 @@ if (WIN32)
 
 else()
 
-  target_link_libraries(SM PRIVATE libc++)
+  target_link_libraries(SM PRIVATE libstdc++)
 
 endif()
 
