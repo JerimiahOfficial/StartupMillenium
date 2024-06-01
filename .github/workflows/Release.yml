@@ -19,6 +19,13 @@ jobs:
           submodules: recursive
 
       - if: ${{matrix.os == 'ubuntu-latest'}}
+        name: Updating packages
+        run: |
+          sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+          sudo apt-get update
+
+
+      - if: ${{matrix.os == 'ubuntu-latest'}}
         name: Configure for linux
         run: >
           cmake -B build
