@@ -31,8 +31,9 @@ _PROCESS_INFORMATION startup(LPCSTR lpApplicationName) {
 }
 
 #elif __linux__
-std::string path = "/home/user/.steam/steam/steamapps/common/GarrysMod";
-// TODO: Implement Linux
+// TODO: Implement Linux support
+#include <signal.h>
+std::string path = "~/.local/share/Steam/steamapps/common/GarrysMod";
 #endif
 
 int main() {
@@ -71,6 +72,14 @@ int main() {
     }
 #elif __linux__
     // TODO: Implement Linux support
+    pid_t pId;
+
+    if (pId == -1) {
+      std::cout << "Failed to start Garrysmod.\n";
+      return 1;
+    }
+
+    execl("hl2_linux", 0, 0);
 #endif
 
     std::this_thread::sleep_for(std::chrono::seconds(15));
@@ -81,6 +90,10 @@ int main() {
     CloseHandle(pInfo.hThread);
 #elif __linux__
     // TODO: Implement Linux support
+    if (kill(pId, SIGKILL)) {
+      std::cout << "Failed to kill Garrysmod.\n";
+      return 1;
+    }
 #endif
 
     std::cout << i << " / 1000\n";
