@@ -15,6 +15,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - if: ${{matrix.os == 'ubuntu-latest'}}
+        name: Configure for linux
+        run: >
+          sudo apt-get update
+          sudo apt-get upgrade
       
       - if: ${{matrix.os == 'ubuntu-latest'}}
         name: Configure for linux

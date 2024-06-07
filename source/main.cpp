@@ -34,7 +34,6 @@ _PROCESS_INFORMATION startup(LPCSTR lpApplicationName) {
 #elif __linux__
 #include <signal.h>
 #include <unistd.h>
-
 std::string path = std::format(
     "/home/{}/.local/share/Steam/steamapps/common/GarrysMod", getlogin());
 
