@@ -31,9 +31,12 @@ _PROCESS_INFORMATION startup(LPCSTR lpApplicationName) {
 }
 
 #elif __linux__
-// TODO: Implement Linux support
 #include <signal.h>
-std::string path = "~/.local/share/Steam/steamapps/common/GarrysMod";
+#include <unistd.h>
+
+std::string path = std::format(
+    "/home/{}/.local/share/Steam/steamapps/common/GarrysMod", getlogin());
+
 #endif
 
 int main() {
@@ -55,16 +58,13 @@ int main() {
   }
 
   std::cout << "GarrysMod directory found.\n";
-
-  std::filesystem::current_path(path);
-
   std::cout << "Starting loop...\n";
 
   std::this_thread::sleep_for(std::chrono::seconds(10));
 
   for (int i = 1; i < 1000; i++) {
 #ifdef _WIN32
-    PROCESS_INFORMATION pInfo = startup("hl2.exe");
+    PROCESS_INFORMATION pInfo = startup((path + "\\hl2.exe").c_str());
 
     if (pInfo.hProcess == NULL) {
       std::cout << "Failed to start Garrysmod.\n";
@@ -72,14 +72,18 @@ int main() {
     }
 #elif __linux__
     // TODO: Implement Linux support
-    pid_t pId;
+    pid_t pId = fork();
+    perror("fork");
 
     if (pId == -1) {
       std::cout << "Failed to start Garrysmod.\n";
       return 1;
     }
 
-    execl("hl2_linux", 0, 0);
+    // TODO: figure out how to launch garrysmod with steam
+    //       won't start on virtual machine for arch linux.
+    execl((path + "/hl2.sh").c_str(), "-steam", "-game", "garrysmod");
+    perror("execl");
 #endif
 
     std::this_thread::sleep_for(std::chrono::seconds(15));
