@@ -15,9 +15,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
+      
       - if: ${{matrix.os == 'ubuntu-latest'}}
         name: Configure for linux
         run: >
