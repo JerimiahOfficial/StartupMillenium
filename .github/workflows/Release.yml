@@ -19,8 +19,8 @@ jobs:
       - if: ${{matrix.os == 'ubuntu-latest'}}
         name: Configure for linux
         run: >
-          sudo apt-get update
-          sudo apt-get upgrade
+          sudo apt update
+          sudo apt upgrade
       
       - if: ${{matrix.os == 'ubuntu-latest'}}
         name: Configure for linux
