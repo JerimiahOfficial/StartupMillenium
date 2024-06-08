@@ -17,21 +17,25 @@ jobs:
       - uses: actions/checkout@v4
 
       - if: ${{matrix.os == 'ubuntu-latest'}}
+        name: Check gcc & g++ version
+        run: grep -r 'gcc|g++' /usr/local/bin/
+
+      - if: ${{matrix.os == 'ubuntu-latest'}}
         name: Configure for linux
         run: >
-          cmake -B build
+          cmake 
+          -B build
           -DCMAKE_BUILD_TYPE=Release
           -DCMAKE_CXX_COMPILER=g++
-          -DCMAKE_C_COMPILER=gcc
 
       - if: ${{matrix.os == 'windows-latest'}}
         name: Configure for windows
         run: >
-          cmake -B build
+          cmake 
+          -B build 
           -G "MinGW Makefiles"
           -DCMAKE_BUILD_TYPE=Release
           -DCMAKE_CXX_COMPILER=g++
-          -DCMAKE_C_COMPILER=gcc
 
       - name: Build release
         run: cmake --build build --config Release
