@@ -18,12 +18,6 @@ jobs:
 
       - if: ${{matrix.os == 'ubuntu-latest'}}
         name: Configure for linux
-        run: |
-          sudo apt update
-          sudo apt upgrade
-      
-      - if: ${{matrix.os == 'ubuntu-latest'}}
-        name: Configure for linux
         run: >
           cmake -B build
           -DCMAKE_BUILD_TYPE=Release
