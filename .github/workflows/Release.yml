@@ -18,7 +18,7 @@ jobs:
 
       - if: ${{matrix.os == 'ubuntu-latest'}}
         name: Check gcc & g++ version
-        run: grep -r 'gcc|g++' /usr/local/bin/
+        run: grep -r 'gcc.*' /usr/local/bin/ || grep -r 'g++.*' /usr/local/bin/
 
       - if: ${{matrix.os == 'ubuntu-latest'}}
         name: Configure for linux
