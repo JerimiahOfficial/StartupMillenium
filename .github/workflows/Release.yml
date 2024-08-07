@@ -15,10 +15,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - if: ${{matrix.os == 'ubuntu-latest'}}
-        name: Check gcc & g++ version
-        run: grep -r 'gcc.*' /usr/local/bin/ || grep -r 'g++.*' /usr/local/bin/
+        with:
+          submodules: true
 
       - if: ${{matrix.os == 'ubuntu-latest'}}
         name: Configure for linux
