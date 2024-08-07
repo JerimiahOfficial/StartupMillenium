@@ -20,8 +20,10 @@ std::string defaultPath =
 #elif __linux__
 #include <signal.h>
 #include <unistd.h>
+
+std::string str(getlogin());
 std::string defaultPath =
-    "/home/" + getlogin() + "/.local/share/Steam/steamapps/common/GarrysMod";
+    "/home/" + str + "/.local/share/Steam/steamapps/common/GarrysMod";
 #endif
 
 void createConfig() {
