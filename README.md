@@ -1,28 +1,32 @@
 ### StartupMillenium
 A simple program to get the acheivement for a game called Garry's Mod. This acheivement requires you to open and close the game 1000 times.
 
-> [!NOTE]
-> The program is hardcoded to `C:\Program Files (x86)\Steam\steamapps\common\GarrysMod`. If you have the game on another hard drive it will not work unless you change the path.
+> [!WARNING]
+> The program will only work on the default version of Garry's Mod it will not work on any beta branches.
+
+> [!IMPORTANT]  
+> If your Garry's Mod is on a different hard drive make sure you set the right path in the config.json file.
+
+> [!NOTE]  
+> The timings may be off as different computers start the game slower, faster or take longer to fully load.
 
 ### Tested platforms
-It has been tested and verified working on windows. So far the only supported platform is windows. I am planning on adding in linux support in the future.
+So far the only supported platform is windows. I am planning on adding linux support in the future.
+
+## Building instructions
 
 ### Dependencies:
 [CMake](https://cmake.org/) is an open-source, cross-platform family of tools designed to build, test and package software.
 
-#### Optional
-gcc and g++ for windows:  
-[msys2](https://www.msys2.org/) is a collection of tools and libraries providing you with an easy-to-use environment for building, installing and running native Windows software.
-
-### Building instructions
-
-#### Windows
+### Windows
 `cmake -B build -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_COMPILER=gcc`  
 `cmake --build build --config Release`
 
+or use whatever compiler you want to use.
+
 <!-- 
 Will be added in when linux support is added.
-#### Linux
+### Linux
 
 `cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_COMPILER=gcc`  
 `cmake --build build --config Release`

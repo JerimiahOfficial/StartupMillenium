@@ -1,44 +1,52 @@
 #include <filesystem>
 #include <format>
+#include <fstream>
 #include <iostream>
+#include <nlohmann/json.hpp>
 #include <string>
 #include <thread>
 
+std::string gamePath;
+std::string configPath =
+    std::filesystem::current_path().append("config.json").string();
+
 #ifdef _WIN32
+#include <handleapi.h>
 #include <stdio.h>
 #include <tchar.h>
 #include <windows.h>
-
-std::string path =
+std::string defaultPath =
     "C:\\Program Files (x86)\\Steam\\steamapps\\common\\GarrysMod";
-
-_PROCESS_INFORMATION startup(LPCSTR lpApplicationName) {
-  bool bSuccess = false;
-
-  _STARTUPINFOA si;
-  _PROCESS_INFORMATION pi;
-
-  ZeroMemory(&si, sizeof(si));
-  si.cb = sizeof(si);
-  ZeroMemory(&pi, sizeof(pi));
-
-  bSuccess = CreateProcessA(lpApplicationName, NULL, NULL, NULL, TRUE, 0, NULL,
-                            NULL, &si, &pi);
-
-  if (!bSuccess) {
-    std::cout << "Failed to create process.\n";
-  }
-
-  return pi;
-}
-
 #elif __linux__
 #include <signal.h>
 #include <unistd.h>
-std::string path = std::format(
+std::string defaultPath = std::format(
     "/home/{}/.local/share/Steam/steamapps/common/GarrysMod", getlogin());
-
 #endif
+
+void createConfig() {
+  if (std::filesystem::exists(configPath)) return;
+
+  nlohmann::json config;
+  config["path"] = defaultPath;
+
+  std::ofstream file(configPath);
+  file << config.dump(4);
+  file.close();
+
+  std::cout << "Config file created.\n";
+}
+
+void readConfig() {
+  std::ifstream file(configPath);
+
+  nlohmann::json config = nlohmann::json::parse(file);
+  gamePath = config["path"].get<std::string>();
+
+  file.close();
+
+  std::cout << "Config file found: \n" << configPath << "\n\n";
+}
 
 int main() {
 #ifdef __linux__
@@ -49,10 +57,20 @@ int main() {
   return 0;
 #endif
 
-  std::cout << "Welcome to Startup Millenium\n";
+  std::cout << "Welcome to Startup Millenium\n\n";
 
-  if (!std::filesystem::exists(path)) {
-    std::cout << "GarrysMod directory not found.\n";
+  createConfig();
+  readConfig();
+
+  if (gamePath.empty()) {
+    std::cout << "Failed to read config file.\n";
+    std::cout << "Press enter to exit...\n";
+    std::cin.get();
+    return 0;
+  }
+
+  if (!std::filesystem::exists(gamePath)) {
+    std::cout << "Check config path may be incorrect.\n";
     std::cout << "Press enter to exit...\n";
     std::cin.get();
     return 0;
@@ -65,10 +83,20 @@ int main() {
 
   for (int i = 1; i < 1000; i++) {
 #ifdef _WIN32
-    PROCESS_INFORMATION pInfo = startup((path + "\\hl2.exe").c_str());
+    bool bSuccess = false;
 
-    if (pInfo.hProcess == NULL) {
-      std::cout << "Failed to start Garrysmod.\n";
+    _STARTUPINFOA si;
+    _PROCESS_INFORMATION pi;
+
+    ZeroMemory(&si, sizeof(si));
+    si.cb = sizeof(si);
+    ZeroMemory(&pi, sizeof(pi));
+
+    bSuccess = CreateProcessA((gamePath + "\\hl2.exe").c_str(), NULL, NULL,
+                              NULL, TRUE, 0, NULL, NULL, &si, &pi);
+
+    if (!bSuccess) {
+      std::cout << "Failed to create process, stopping program.\n";
       return 1;
     }
 #elif __linux__
@@ -90,9 +118,9 @@ int main() {
     std::this_thread::sleep_for(std::chrono::seconds(15));
 
 #ifdef _WIN32
-    TerminateProcess(pInfo.hProcess, 0);
-    CloseHandle(pInfo.hProcess);
-    CloseHandle(pInfo.hThread);
+    TerminateProcess(pi.hProcess, 1);
+    CloseHandle(pi.hProcess);
+    CloseHandle(pi.hThread);
 #elif __linux__
     // TODO: Implement Linux support
     if (kill(pId, SIGKILL)) {
