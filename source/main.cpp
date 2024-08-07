@@ -100,6 +100,7 @@ int main() {
       return 1;
     }
 #elif __linux__
+/*
     // TODO: Implement Linux support
     pid_t pId = fork();
     perror("fork");
@@ -113,6 +114,7 @@ int main() {
     //       won't start on virtual machine for arch linux.
     execl((path + "/hl2.sh").c_str(), "-steam", "-game", "garrysmod");
     perror("execl");
+*/
 #endif
 
     std::this_thread::sleep_for(std::chrono::seconds(15));
@@ -122,11 +124,13 @@ int main() {
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
 #elif __linux__
+/*
     // TODO: Implement Linux support
     if (kill(pId, SIGKILL)) {
       std::cout << "Failed to kill Garrysmod.\n";
       return 1;
     }
+*/
 #endif
 
     std::cout << i << " / 1000\n";
