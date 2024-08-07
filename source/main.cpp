@@ -113,7 +113,7 @@ int main() {
 
     // TODO: figure out how to launch garrysmod with steam
     //       won't start on virtual machine for arch linux.
-    execl((path + "/hl2.sh").c_str(), "-steam", "-game", "garrysmod");
+    execl((gamePath + "/hl2.sh").c_str(), "-steam", "-game", "garrysmod");
     perror("execl");
 #endif
 
