@@ -1,5 +1,5 @@
 #include <filesystem>
-#include <format>
+// #include <format>
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
@@ -20,8 +20,8 @@ std::string defaultPath =
 #elif __linux__
 #include <signal.h>
 #include <unistd.h>
-std::string defaultPath = std::format(
-    "/home/{}/.local/share/Steam/steamapps/common/GarrysMod", getlogin());
+// std::string defaultPath = std::format(
+//     "/home/{}/.local/share/Steam/steamapps/common/GarrysMod", getlogin());
 #endif
 
 void createConfig() {
