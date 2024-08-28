@@ -1,5 +1,4 @@
 #include <filesystem>
-// #include <format>
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
@@ -15,6 +14,7 @@ std::string configPath =
 #include <stdio.h>
 #include <tchar.h>
 #include <windows.h>
+
 std::string defaultPath =
     "C:\\Program Files (x86)\\Steam\\steamapps\\common\\GarrysMod";
 #elif __linux__
@@ -40,21 +40,28 @@ void createConfig() {
 }
 
 void readConfig() {
+  if (!std::filesystem::exists(configPath))
+    throw std::runtime_error("Config file doesn't exist.");
+
   std::ifstream file(configPath);
 
   nlohmann::json config = nlohmann::json::parse(file);
   gamePath = config["path"].get<std::string>();
 
+  if (gamePath.empty()) throw std::runtime_error("Failed to read config file.");
+
+  if (!std::filesystem::exists(gamePath))
+    throw std::runtime_error("Game path doesn't exist.");
+
   file.close();
 
-  std::cout << "Config file found: \n" << configPath << "\n\n";
+  std::cout << "Config file found:\n" << configPath << "\n\n";
 }
 
 int main() {
 #ifdef __linux__
   // TODO: Implement Linux support
-  std::cout << "This program is not supported on Linux yet.\n";
-  std::cout << "Press enter to exit...\n";
+  std::cout << "Linux is not supported.\nPress enter to exit...\n";
   std::cin.get();
   return 0;
 #endif
@@ -64,26 +71,10 @@ int main() {
   createConfig();
   readConfig();
 
-  if (gamePath.empty()) {
-    std::cout << "Failed to read config file.\n";
-    std::cout << "Press enter to exit...\n";
-    std::cin.get();
-    return 0;
-  }
-
-  if (!std::filesystem::exists(gamePath)) {
-    std::cout << "Check config path may be incorrect.\n";
-    std::cout << "Press enter to exit...\n";
-    std::cin.get();
-    return 0;
-  }
-
-  std::cout << "GarrysMod directory found.\n";
-  std::cout << "Starting loop...\n";
-
+  std::cout << "GarrysMod directory found.\nStarting loop...\n";
   std::this_thread::sleep_for(std::chrono::seconds(10));
 
-  for (int i = 1; i < 1000; i++) {
+  for (int i = 0; i < 999; i++) {
 #ifdef _WIN32
     bool bSuccess = false;
 
@@ -135,9 +126,7 @@ int main() {
     std::this_thread::sleep_for(std::chrono::seconds(10));
   }
 
-  std::cout << "Loop finished.\n";
-  std::cout << "Press enter to exit...\n";
+  std::cout << "Loop finished.\nPress enter to exit...\n";
   std::cin.get();
-
   return 0;
 }
