@@ -81,9 +81,9 @@ int main() {
     _STARTUPINFOA si;
     _PROCESS_INFORMATION pi;
 
-    ZeroMemory(&si, sizeof(si));
+    memset(&si, 0, sizeof(si));
     si.cb = sizeof(si);
-    ZeroMemory(&pi, sizeof(pi));
+    memset(&pi, 0, sizeof(pi));
 
     bSuccess = CreateProcessA((gamePath + "\\hl2.exe").c_str(), NULL, NULL,
                               NULL, TRUE, 0, NULL, NULL, &si, &pi);
@@ -95,17 +95,20 @@ int main() {
 #elif __linux__
     // TODO: Implement Linux support
     pid_t pId = fork();
-    perror("fork");
 
-    if (pId == -1) {
-      std::cout << "Failed to start Garrysmod.\n";
+    if (pId == 0) {
+      // Child process
+      std::string hl2Path = gamePath + "/hl2_linux";
+      execl(hl2Path.c_str(), "hl2_linux", NULL);
+
+      // If execl returns, it means it failed
+      std::cerr << "Failed to execute hl2_linux\n";
+      exit(1);
+    } else if (pId < 0) {
+      // Fork failed
+      std::cerr << "Failed to fork process\n";
       return 1;
     }
-
-    // TODO: figure out how to launch garrysmod with steam
-    //       won't start on virtual machine for arch linux.
-    execl((gamePath + "/hl2.sh").c_str(), "-steam", "-game", "garrysmod");
-    perror("execl");
 #endif
 
     std::this_thread::sleep_for(std::chrono::seconds(15));
@@ -116,13 +119,28 @@ int main() {
     CloseHandle(pi.hThread);
 #elif __linux__
     // TODO: Implement Linux support
-    if (kill(pId, SIGKILL)) {
-      std::cout << "Failed to kill Garrysmod.\n";
+    int killResult = kill(pId, SIGTERM);
+
+    if (killResult == -1) {
+      std::cerr << "Failed to kill process\n";
       return 1;
+    }
+
+    int status;
+    pid_t pid = waitpid(pId, &status, 0);
+
+    if (pid == -1) {
+      std::cerr << "Failed to wait for process\n";
+      return 1;
+    }
+
+    if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
+      std::cout << "hl2_linux exited with status " << WEXITSTATUS(status)
+                << "\n";
     }
 #endif
 
-    std::cout << i << " / 1000\n";
+    std::cout << i + 1 << " / 1000\n";
     std::this_thread::sleep_for(std::chrono::seconds(10));
   }
 
