@@ -12,7 +12,11 @@ jobs:
 
       matrix:
         os: [ubuntu-latest, windows-latest]
-        path: [build/SM, build/Release/SM.exe]
+        include:
+          - os: ubuntu-latest
+            path: build/SM
+          - os: windows-latest
+            path: build/Release/SM.exe
         
     steps:
       - uses: actions/checkout@v4
