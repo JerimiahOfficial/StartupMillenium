@@ -10,9 +10,6 @@ std::string configPath =
     std::filesystem::current_path().append("config.json").string();
 
 #ifdef _WIN32
-#include <handleapi.h>
-#include <stdio.h>
-#include <tchar.h>
 #include <windows.h>
 
 std::string defaultPath =
@@ -27,7 +24,8 @@ std::string defaultPath =
 #endif
 
 void createConfig() {
-  if (std::filesystem::exists(configPath)) return;
+  if (std::filesystem::exists(configPath))
+    return;
 
   nlohmann::json config;
   config["path"] = defaultPath;
@@ -48,7 +46,8 @@ void readConfig() {
   nlohmann::json config = nlohmann::json::parse(file);
   gamePath = config["path"].get<std::string>();
 
-  if (gamePath.empty()) throw std::runtime_error("Failed to read config file.");
+  if (gamePath.empty())
+    throw std::runtime_error("Failed to read config file.");
 
   if (!std::filesystem::exists(gamePath))
     throw std::runtime_error("Game path doesn't exist.");
