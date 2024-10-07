@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.11)
-project(SM VERSION 1.0 LANGUAGES CXX)
+project(SM)
 
-set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
-set(CMAKE_CXX_EXTENSIONS OFF)
-set(JSON_BuildTests OFF CACHE INTERNAL "")
+set(JSON_BuildTests
+    OFF
+    CACHE INTERNAL "")
 
 add_subdirectory(json)
 

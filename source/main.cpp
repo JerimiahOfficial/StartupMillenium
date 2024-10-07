@@ -14,13 +14,8 @@ std::string configPath =
 
 std::string defaultPath =
     "C:\\Program Files (x86)\\Steam\\steamapps\\common\\GarrysMod";
-#elif __linux__
-#include <signal.h>
-#include <unistd.h>
-
-std::string str(getlogin());
-std::string defaultPath =
-    "/home/" + str + "/.local/share/Steam/steamapps/common/GarrysMod";
+#else
+// TODO: Implement Linux support
 #endif
 
 void createConfig() {
@@ -91,23 +86,8 @@ int main() {
       std::cout << "Failed to create process, stopping program.\n";
       return 1;
     }
-#elif __linux__
+#else
     // TODO: Implement Linux support
-    pid_t pId = fork();
-
-    if (pId == 0) {
-      // Child process
-      std::string hl2Path = gamePath + "/hl2_linux";
-      execl(hl2Path.c_str(), "hl2_linux", NULL);
-
-      // If execl returns, it means it failed
-      std::cerr << "Failed to execute hl2_linux\n";
-      exit(1);
-    } else if (pId < 0) {
-      // Fork failed
-      std::cerr << "Failed to fork process\n";
-      return 1;
-    }
 #endif
 
     std::this_thread::sleep_for(std::chrono::seconds(15));
@@ -116,27 +96,8 @@ int main() {
     TerminateProcess(pi.hProcess, 1);
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
-#elif __linux__
+#else
     // TODO: Implement Linux support
-    int killResult = kill(pId, SIGTERM);
-
-    if (killResult == -1) {
-      std::cerr << "Failed to kill process\n";
-      return 1;
-    }
-
-    int status;
-    pid_t pid = waitpid(pId, &status, 0);
-
-    if (pid == -1) {
-      std::cerr << "Failed to wait for process\n";
-      return 1;
-    }
-
-    if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
-      std::cout << "hl2_linux exited with status " << WEXITSTATUS(status)
-                << "\n";
-    }
 #endif
 
     std::cout << i + 1 << " / 1000\n";
