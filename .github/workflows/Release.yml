@@ -16,7 +16,7 @@ jobs:
           - os: ubuntu-latest
             path: build/SM
           - os: windows-latest
-            path: build/Release/SM.exe
+            path: build/MinSizeRel/SM.exe
         
     steps:
       - uses: actions/checkout@v4
