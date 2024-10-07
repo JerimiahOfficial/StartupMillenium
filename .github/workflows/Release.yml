@@ -18,30 +18,15 @@ jobs:
         with:
           submodules: true
 
-      - if: ${{matrix.os == 'ubuntu-latest'}}
-        name: Configure for linux
+      - name: Configure cmake
         run: >
           cmake 
           -B build
           -DCMAKE_BUILD_TYPE=MinSizeRel
-          -DCMAKE_CXX_COMPILER=g++
-
-      - if: ${{matrix.os == 'windows-latest'}}
-        name: Configure for windows
-        run: >
-          cmake 
-          -B build 
-          -G "MinGW Makefiles"
-          -DCMAKE_BUILD_TYPE=MinSizeRel
-          -DCMAKE_CXX_COMPILER=g++
 
       - name: Build release
         run: cmake --build build
       
-      # - name: Test
-      #   working-directory: ${{ github.workspace }}/build
-      #   run: ctest --build-config Release
-
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
