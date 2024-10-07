@@ -16,6 +16,12 @@ std::string defaultPath =
     "C:\\Program Files (x86)\\Steam\\steamapps\\common\\GarrysMod";
 #else
 // TODO: Implement Linux support
+#include <signal.h>
+#include <unistd.h>
+
+std::string str(getlogin());
+std::string defaultPath =
+    "/home/" + str + "/.local/share/Steam/steamapps/common/GarrysMod";
 #endif
 
 void createConfig() {
