@@ -1,21 +1,20 @@
 # Startup Millenium
+A simple program to get the acheivement for a game called Garry's Mod. This acheivement requires you to open and close the game 1000 times.  
 
-A simple program to get the acheivement for a game called Garry's Mod. This acheivement requires you to open and close the game 1000 times.
-
-> [!NOTE]  
-> The timings may be off as different computers start the game slower, faster or take longer to fully load.
-
-## Tested platforms
-
-So far **the only supported platform is Windows**. I am planning on adding linux support in the future.
-
-## Building
-
-`cmake -B build -DCMAKE_BUILD_TYPE=Release`  
-`cmake --build build --config Release`  
+You can find the latest release [Here](https://github.com/JerimiahOfficial/StartupMillenium/releases/latest).
 
 ## Configuration
 
-Config file is created upon first run if it does not exist.
+Config file is created after first run.
 
-The default path is `C:\Program Files (x86)\Steam\steamapps\common\GarrysMod`
+### Windows:
+- default path: `C:\Program Files (x86)\Steam\steamapps\common\GarrysMod`  
+
+### Linux:
+- default path: `<Must be specified in config>`  
+
+### Mac:
+- default path: `<Must be specified in config>`
+
+## Building
+`cargo build --release`  

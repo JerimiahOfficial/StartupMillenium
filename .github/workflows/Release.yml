@@ -14,26 +14,18 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         include:
           - os: ubuntu-latest
-            path: build/SM
+            path: target/release/sm
           - os: windows-latest
-            path: build/MinSizeRel/SM.exe
+            path: target/release/sm.exe
         
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: true
 
-      - name: Configure cmake
-        run: >
-          cmake 
-          -B build
-          -DCMAKE_BUILD_TYPE=MinSizeRel
+      - name: Build
+        run: cargo build --release
 
-      - name: Build release
-        run: >
-          cmake 
-          --build build
-          --config MinSizeRel
+      - name: Test
+        run: cargo test
       
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
@@ -68,5 +60,5 @@ jobs:
             **This release has been built by Github Actions**
             [Link to build](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
           files: |
-            SM
-            SM.exe
+            sm
+            sm.exe
