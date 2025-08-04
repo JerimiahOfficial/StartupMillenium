@@ -1,6 +1,9 @@
-name: CMake
+name: Build and Release
 
-on: push
+on:
+  push:
+    branches: [main]
+    paths: [ 'src/**', 'Cargo.toml' ]
 
 jobs:
   build:

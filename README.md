@@ -10,6 +10,9 @@ You can find the latest release [Here](https://github.com/JerimiahOfficial/Start
 ## Configuration
 Config file is created after first run.
 
+> [!IMPORTANT]  
+> Custom game locations must be specified in the config.
+
 ### Windows:
 - default path: `C:\Program Files (x86)\Steam\steamapps\common\GarrysMod`  
 
@@ -18,6 +21,3 @@ Config file is created after first run.
 
 ### Mac:
 - default path: `<Must be specified in config>`
-
-## Building
-`cargo build --release`  
