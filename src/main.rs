@@ -21,7 +21,7 @@ async fn main() {
         process.wait_for_idle().await;
         process.stop().await;
 
-        println!("{}/1000", i + 1)
+        println!("{} / 1000", i + 1)
     }
 
     println!("Finished");
