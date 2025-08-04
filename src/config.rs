@@ -59,10 +59,6 @@ pub async fn read_config() -> std::io::Result<Settings> {
 
     let settings: Settings = serde_json::from_str(&data).expect("Failed to parse config file");
 
-    if settings.game_path.is_empty() {
-        panic!("Game path is empty in config.");
-    }
-
     Ok(settings)
 }
 
