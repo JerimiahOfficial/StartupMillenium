@@ -1,10 +1,13 @@
-# Startup Millenium
+<div align="center">
+  <img src="./assets/sm.jpg"/>
+  <h1>Startup Millenium</h1>
+</div>
+
 A simple program to get the acheivement for a game called Garry's Mod. This acheivement requires you to open and close the game 1000 times.  
 
 You can find the latest release [Here](https://github.com/JerimiahOfficial/StartupMillenium/releases/latest).
 
 ## Configuration
-
 Config file is created after first run.
 
 ### Windows:
