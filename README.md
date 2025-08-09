@@ -5,7 +5,7 @@
 
 A simple program to get the acheivement for a game called Garry's Mod. This acheivement requires you to open and close the game 1000 times.  
 
-You can find the latest release [Here](https://github.com/JerimiahOfficial/StartupMillenium/releases/latest).
+You can find the latest release [Here](https://github.com/gage-lodba/StartupMillenium/releases/latest).
 
 ## Configuration
 Config file is created after first run.
